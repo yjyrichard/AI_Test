@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yangjiayu.exam_system_server_online.mapper.QuestionsMapper">
+    <sql id="tableName">
+        questions
+    </sql>
+
+    <sql id="baseColumn">
+        id,title,type,multi,category_id,difficulty,score,analysis,create_time,update_time,is_deleted
+    </sql>
+
+</mapper>
