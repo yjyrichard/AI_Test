@@ -1,70 +1,53 @@
 package com.yangjiayu.exam_system_server_online.entity;
 
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
-import java.util.Date;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
+
+import java.io.Serializable;
 
 /**
- * (answer_record)实体类
- *
- * @author yangjiayu
- * @since 2025-10-15 21:05:45
- * @description 
+ * 答题记录表 - 存储学生每道题的答题详情
  */
+@TableName(value ="answer_record")
 @Data
 @NoArgsConstructor
-@Accessors(chain = true)
-@TableName("answer_record")
-public class AnswerRecord extends Model<AnswerRecord> implements Serializable {
-    private static final long serialVersionUID = 1L;
+@Schema(description = "答题记录信息")
+public class AnswerRecord extends BaseEntity {
 
-    /**
-     * id
-     */
-    @TableId
-	private Integer id;
-    /**
-     * examRecordId
-     */
-    private Integer examRecordId;
-    /**
-     * questionId
-     */
-    private Integer questionId;
-    /**
-     * userAnswer
-     */
-    private String userAnswer;
-    /**
-     * score
-     */
-    private Integer score;
-    /**
-     * isCorrect
-     */
-    private Integer isCorrect;
-    /**
-     * aiCorrection
-     */
-    private String aiCorrection;
-    /**
-     * 创建时间
-     */
-    private Date createTime;
-    /**
-     * 更新时间
-     */
-    @TableField(update = "now()")
-	private Date updateTime;
-    /**
-     * 0-未删除，1-已删除
-     */
-    private Integer isDeleted;
+    @Schema(description = "关联的考试记录ID", 
+            example = "1")
+    private Integer examRecordId; // 考试记录ID
 
-}
+    @Schema(description = "题目ID", 
+            example = "5")
+    private Integer questionId; // 题目ID
+
+    @Schema(description = "学生提交的答案", 
+            example = "A")
+    private String userAnswer; // 用户答案
+
+    @Schema(description = "该题得分", 
+            example = "5")
+    private Integer score; // 得分
+
+    @Schema(description = "答题正确性", 
+            example = "1", 
+            allowableValues = {"0", "1", "2"})
+    private Integer isCorrect; // 是否正确 (0: 错误, 1: 正确, 2: 部分正确)
+
+    @Schema(description = "AI智能批改的评价意见", 
+            example = "答案基本正确，但缺少关键概念的解释...")
+    private String aiCorrection; // AI批改意见
+
+
+    public AnswerRecord(Integer examRecordId, Integer questionId, String userAnswer) {
+        this.examRecordId = examRecordId;
+        this.questionId = questionId;
+        this.userAnswer = userAnswer;
+    }
+} 

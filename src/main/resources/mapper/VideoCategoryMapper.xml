@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yangjiayu.exam_system_server_online.mapper.VideoCategoryMapper">
+    <sql id="tableName">
+        video_categories
+    </sql>
+
+    <sql id="baseColumn">
+        id,name,description,parent_id,sort_order,status,created_at,updated_at
+    </sql>
+
+</mapper>

@@ -45,7 +45,7 @@ public class Knife4jConfiguration {
 
         return GroupedOpenApi.builder().group("用户信息管理").
             pathsToMatch(
-                "/api/user/**"
+                "/user/**"
             ).
             build();
     }
@@ -56,8 +56,8 @@ public class Knife4jConfiguration {
 
         return GroupedOpenApi.builder().group("试题信息管理").
             pathsToMatch(
-                "/api/categories/**",
-                "/api/questions/**"
+                "/categories/**",
+                "/questions/**"
             ).
             build();
     }
@@ -70,9 +70,9 @@ public class Knife4jConfiguration {
 
         return GroupedOpenApi.builder().group("考试信息管理").
             pathsToMatch(
-                "/api/papers/**",
-                "/api/exams/**",
-                "/api/exam-records/**"
+                "/papers/**",
+                "/exams/**",
+                "/exam-records/**"
             ).
             build();
     }
@@ -83,9 +83,9 @@ public class Knife4jConfiguration {
 
         return GroupedOpenApi.builder().group("视频信息管理").
             pathsToMatch(
-                "/api/admin/videos/**",
-                "/api/videos/**",
-                "/api/video-categories/**"
+                "/admin/videos/**",
+                "/videos/**",
+                "/video-categories/**"
             ).
             build();
     }
@@ -97,8 +97,8 @@ public class Knife4jConfiguration {
 
         return GroupedOpenApi.builder().group("系统信息管理").
             pathsToMatch(
-                "/api/banners/**",
-                "/api/notices/**"
+                "/banners/**",
+                "/notices/**"
             ).
             build();
     }
@@ -110,9 +110,9 @@ public class Knife4jConfiguration {
 
         return GroupedOpenApi.builder().group("其他内容管理").
             pathsToMatch(
-                "/api/stats/**",
+                "/stats/**",
                 "/files/**",
-                "/api/debug/**"
+                "/debug/**"
             ).
             build();
     }

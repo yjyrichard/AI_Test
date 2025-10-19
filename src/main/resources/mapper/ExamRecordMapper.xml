@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yangjiayu.exam_system_server_online.mapper.ExamRecordMapper">
+    <sql id="tableName">
+        exam_records
+    </sql>
+
+    <sql id="baseColumn">
+        id,exam_id,student_name,score,answers,start_time,end_time,status,window_switches,create_time,update_time,is_deleted
+    </sql>
+    <select id="customQueryRanking" resultType="com.yangjiayu.exam_system_server_online.vo.ExamRankingVO">
+
+            select
+            er.*,
+            pr.`name` paper_name ,
+            pr. total_score paper_total_score,
+            TIMESTAMPDIFF(MINUTE, er.start_time, er.end_time) duration
+            from exam_records er left join paper pr
+            on er.exam_id = pr.id
+            where er.is_deleted = 0 and pr.is_deleted = 0
+            and er.`status` = '已批阅'
+            <if test="paperId != null">
+                and pr.id=#{paperId}
+            </if>
+            order by er.score desc , duration asc
+            <if test="limit != null">
+                limit #{limit};
+            </if>
+    </select>
+
+</mapper>
