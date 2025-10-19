@@ -1,71 +1,53 @@
 package com.yangjiayu.exam_system_server_online.entity;
 
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
-import java.math.BigDecimal;
-import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.List;
 
 /**
- * (paper)实体类
- *
- * @author yangjiayu
- * @since 2025-10-15 21:05:46
- * @description 
+ * 试卷表 - 存储考试试卷的基本信息
  */
+@TableName(value ="paper")
 @Data
-@NoArgsConstructor
-@Accessors(chain = true)
-@TableName("paper")
-public class Paper extends Model<Paper> implements Serializable {
-    private static final long serialVersionUID = 1L;
+@Schema(description = "试卷信息")
+public class Paper extends BaseEntity {
 
-    /**
-     * id
-     */
-    @TableId
-	private Integer id;
-    /**
-     * name
-     */
-    private String name;
-    /**
-     * description
-     */
-    private String description;
-    /**
-     * status
-     */
+    @Schema(description = "试卷名称", 
+            example = "Java基础知识测试")
+    private String name; // 试卷名称
+
+    @Schema(description = "试卷描述", 
+            example = "本试卷主要考察Java基础语法、面向对象编程等知识点")
+    private String description; // 试卷描述
+
+    @Schema(description = "试卷状态", 
+            example = "PUBLISHED", 
+            allowableValues = {"DRAFT", "PUBLISHED", "STOPPED"})
     private String status;
-    /**
-     * totalScore
-     */
-    private BigDecimal totalScore;
-    /**
-     * questionCount
-     */
-    private Integer questionCount;
-    /**
-     * duration
-     */
-    private Integer duration;
-    /**
-     * 创建时间
-     */
-    private Date createTime;
-    /**
-     * 更新时间
-     */
-    @TableField(update = "now()")
-	private Date updateTime;
-    /**
-     * 0-未删除，1-已删除
-     */
-    private Integer isDeleted;
 
-}
+    @Schema(description = "试卷总分", 
+            example = "100.0")
+    private BigDecimal totalScore; // 总分
+
+    @Schema(description = "题目数量", 
+            example = "20")
+    private Integer questionCount; // 题目数量
+
+    @Schema(description = "考试时长，单位：分钟", 
+            example = "120")
+    private Integer duration; // 考试时长
+
+    @Schema(description = "试卷包含的题目列表，含题目详细信息和分值")
+    @TableField(exist = false)
+    private List<Question> questions; // 题目列表，非数据库字段
+
+} 
